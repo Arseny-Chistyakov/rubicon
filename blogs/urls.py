@@ -6,4 +6,5 @@ app_name = 'blogs'
 
 urlpatterns = [
     path('', blogs, name='index'),
+    path('page/<int:page>/', blogs, name='page'),
 ]
