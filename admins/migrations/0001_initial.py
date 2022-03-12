@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -12,13 +11,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='New',
+            name='NewAdmin',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('header', models.CharField(max_length=256)),
                 ('image', models.ImageField(upload_to='blogs_images')),
                 ('body', models.TextField()),
-                ('date_public', models.DateField(auto_now=True)),
             ],
         ),
     ]

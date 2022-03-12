@@ -6,8 +6,9 @@ from django.urls import path, include
 from blogs.views import index
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('admin/', admin.site.urls),
+    path('admins-special/', include('admins.urls', namespace='admins_special')),
     path('blogs/', include('blogs.urls', namespace='blogs')),
     path('users/', include('users.urls', namespace='users')),
 
