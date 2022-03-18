@@ -1,6 +1,6 @@
 from django import forms
 
-from admins.models import NewAdmin
+from blogs.models import New
 from users.forms import UserRegistrationForm, UserProfileForm
 from users.models import User
 
@@ -23,7 +23,7 @@ class NewAdminForm(forms.ModelForm):
     image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'custom-file-input'}), required=False)
 
     class Meta:
-        model = NewAdmin
+        model = New
         fields = ('header', 'image', 'body')
 
     def __init__(self, *args, **kwargs):

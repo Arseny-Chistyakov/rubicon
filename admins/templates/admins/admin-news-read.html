@@ -33,8 +33,10 @@
                             <tbody>
                             {% for new in object_list %}
                                 <tr>
-                                    <td><a href="{% url 'admins_special:admin_news_update' new.id %}"
-                                           style="color: dodgerblue"> {{ new.header }}</a>
+                                    <td>
+                                        <a href="{% url 'admins_special:admin_news_update' new.id %}"
+                                           style="color: dodgerblue">
+                                            {{ new.header }}</a>
                                     </td>
                                     <td>{{ new.body }}</td>
                                 </tr>
