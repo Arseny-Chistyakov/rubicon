@@ -14,18 +14,18 @@
                 <h1 class="my-lg-4">Блог</h1>
             </div>
             <div class="row">
-                {% for new in news %}
+                {% for post in posts %}
                     <div class="col-lg-6 col-md-6 mb-6">
                         <div class="card h-100">
                             <a href="#">
-                                <img class="card-img-top" src="{{ new.image.url }}" alt=""/>
+                                <img class="card-img-top" src="{{ post.image.url }}" alt=""/>
                             </a>
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href="#">{{ new.header }}</a>
+                                    <a href="#">{{ post.header }}</a>
                                 </h4>
-                                <h6>{{ new.date_public.today }} </h6>
-                                <p class="card-text">{{ new.body }}</p>
+                                <h6> Опубликовано {{ post.publish }} </h6>
+                                <p class="card-text">{{ post.body }}</p>
                             </div>
                         </div>
                     </div>
@@ -34,23 +34,23 @@
 
             <nav aria-label="Page navigation example justify-content-center ">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item {% if not news.has_previous %} disabled {% endif %}">
-                        <a class="page-link justify-content-center" href="{% if news.has_previous %}
-                                    {% url 'blogs:page' news.previous_page_number %}
+                    <li class="page-item {% if not posts.has_previous %} disabled {% endif %}">
+                        <a class="page-link justify-content-center" href="{% if posts.has_previous %}
+                                    {% url 'blogs:page' posts.previous_page_number %}
                                     {% else %} # {% endif %}" tabindex="-1" aria-disabled="true">
                             Previous
                         </a>
                     </li>
 
-                    {% for page in news.paginator.page_range %}
+                    {% for page in posts.paginator.page_range %}
                         <li class="page-item">
                             <a class="page-link" href="{% url 'blogs:page' page %}">{{ page }}</a>
                         </li>
                     {% endfor %}
 
-                    <li class="page-item {% if not news.has_next %} disabled{% endif %} ">
+                    <li class="page-item {% if not posts.has_next %} disabled{% endif %} ">
                         <a class="page-link"
-                           href="{% if news.has_next %} {% url 'blogs:page' news.next_page_number %}
+                           href="{% if posts.has_next %} {% url 'blogs:page' posts.next_page_number %}
                                      {% else %} # {% endif %}">
                             Next
                         </a>

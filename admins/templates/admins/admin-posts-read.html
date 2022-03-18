@@ -31,14 +31,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for new in object_list %}
+                            {% for post in object_list %}
                                 <tr>
                                     <td>
-                                        <a href="{% url 'admins_special:admin_news_update' new.id %}"
+                                        <a href="{% url 'admins_special:admin_posts_update' post.id %}"
                                            style="color: dodgerblue">
-                                            {{ new.header }}</a>
+                                            {{ post.header }}</a>
                                     </td>
-                                    <td>{{ new.body }}</td>
+                                    <td>{{ post.body }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{% url 'admins_special:admin_news_create' %}">
+                    <a href="{% url 'admins_special:admin_posts_create' %}">
                         <button class="btn btn-success">Создать пост</button>
                     </a>
                 </div>

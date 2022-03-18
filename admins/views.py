@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
-from admins.forms import NewAdminForm, UserAdminRegistrationForm, UserAdminProfileForm
-from blogs.models import New
+from admins.forms import PostAdminForm, UserAdminRegistrationForm, UserAdminProfileForm
+from blogs.models import Post
 from users.models import User
 
 
@@ -25,11 +25,11 @@ class UserAdminCreateView(CreateView):
     template_name = 'admins/admin-users-create.html'
 
 
-class NewAdminCreateView(CreateView):
-    model = New
-    form_class = NewAdminForm
-    success_url = reverse_lazy('admins_special:admin_news')
-    template_name = 'admins/admin-news-create.html'
+class PostAdminCreateView(CreateView):
+    model = Post
+    form_class = PostAdminForm
+    success_url = reverse_lazy('admins_special:admin_posts')
+    template_name = 'admins/admin-posts-create.html'
 
 
 # read controller
@@ -38,9 +38,9 @@ class UserAdminListView(ListView):
     template_name = 'admins/admin-users-read.html'
 
 
-class NewAdminListView(ListView):
-    model = New
-    template_name = 'admins/admin-news-read.html'
+class PostAdminListView(ListView):
+    model = Post
+    template_name = 'admins/admin-posts-read.html'
 
 
 # update controller
@@ -51,11 +51,11 @@ class UserAdminUpdateView(UpdateView):
     template_name = 'admins/admin-users-update-delete.html'
 
 
-class NewAdminUpdateView(UpdateView):
-    model = New
-    form_class = NewAdminForm
-    success_url = reverse_lazy('admins_special:admin_news')
-    template_name = 'admins/admin-news-update-delete.html'
+class PostAdminUpdateView(UpdateView):
+    model = Post
+    form_class = PostAdminForm
+    success_url = reverse_lazy('admins_special:admin_posts')
+    template_name = 'admins/admin-posts-update-delete.html'
 
 
 # delete controller
@@ -74,10 +74,10 @@ class UserAdminDeleteView(DeleteView):
         return HttpResponseRedirect(self.success_url)
 
 
-class NewAdminDeleteView(DeleteView):
-    model = New
-    success_url = reverse_lazy('admins_special:admin_news')
-    template_name = 'admins/admin-news-update-delete.html'
+class PostAdminDeleteView(DeleteView):
+    model = Post
+    success_url = reverse_lazy('admins_special:admin_posts')
+    template_name = 'admins/admin-posts-update-delete.html'
 
 # read controller
 # @user_passes_test(lambda u: u.is_staff)
