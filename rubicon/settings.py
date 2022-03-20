@@ -28,6 +28,7 @@ INSTALLED_APPS = [
 
     'blogs',
     'users',
+    'admins',
 ]
 
 MIDDLEWARE = [
@@ -96,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'W-SU'
 
 USE_I18N = True
 

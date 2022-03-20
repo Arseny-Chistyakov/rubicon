@@ -1,0 +1,58 @@
+{% extends 'admins/base.html' %}
+
+{% block content %}
+    <main>
+        <div class="container-fluid">
+            {% if messages or form.errors %}
+                <div class="alert alert-dismissible fade show
+                        {% if messages %} alert-success {% else %} alert-warning {% endif %}" role="alert"
+                     style="margin-top: 50px;">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    {% else %}
+                        {{ form.non_field_errors }}
+                    {% endif %}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+            <h1 class="mt-4">Просмотр/редактирование блога</h1>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Содержание поста</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for post in object_list %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'admins_special:admin_posts_update' post.id %}"
+                                           style="color: dodgerblue">
+                                            {{ post.header }}</a>
+                                    </td>
+                                    <td>{{ post.body }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'admins_special:admin_posts_create' %}">
+                        <button class="btn btn-success">Создать пост</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+

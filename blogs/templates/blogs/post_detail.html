@@ -1,0 +1,52 @@
+{% extends "blogs/base.html" %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'css/blogs.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div id="card" class="card h-100">
+            <img class="card-img-top pt-4 pb-3 pl-4 pr-4" src="{{ post.image.url }}" alt=""/>
+            <div class="card-body">
+                <h4 class="card-title">
+                    {{ post.header }}
+                </h4>
+                <p class="public_comment">
+                    Опубликовано {{ post.publish }} пользователем - {{ post.author }}
+                </p>
+                <p class="card-text">
+                    {{ post.body|linebreaks }}
+                </p>
+                {% for comment in post.comments.all %}
+                    {% if comment.active %}
+                        <div>
+                            <p class="info_about_comment"> Комментирует {{ comment.name }} {{ comment.created }} </p>
+                            {{ comment.body|linebreaks }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% if user.is_authenticated %}
+                    <hr class="hr-shadow">
+                    <h5 class="card-title"> Ваш ответ </h5>
+                    <form action="{% url 'blogs:post_detail' post.slug %}" method="post">
+                        {{ comment_form.as_p }}
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-lg-12" style="margin-top: 33px;">
+                                <input class="btn btn-info btn-block" type="submit" value="Опубликовать комментарии">
+                            </div>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <footer class="py-5 bg-dark ">
+        <p class="m-0 text-center text-white">&copy; ООО «Рубикон» {% now "Y" %}</p>
+    </footer>
+{% endblock %}
