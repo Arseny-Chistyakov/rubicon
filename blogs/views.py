@@ -1,7 +1,9 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 
-from blogs.models import Post
+from blogs.forms import CommentForm
+from blogs.models import Post, Comment
 
 
 def index(request):
@@ -23,3 +25,21 @@ def blogs(request, page=1):
         'posts': posts_paginator,
     }
     return render(request, 'blogs/blogs.html', context=context)
+
+
+def post_detail(request, post_slug):
+    post = get_object_or_404(Post, status='published', slug=post_slug)
+    comments = Comment.objects.filter(active=True)
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+            return HttpResponseRedirect(request.path)
+    else:
+        comment_form = CommentForm()
+    return render(request, 'blogs/post_detail.html',
+                  {'post': post,
+                   'comments': comments,
+                   'comment_form': comment_form})

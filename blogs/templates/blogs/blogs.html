@@ -22,10 +22,9 @@
                             </a>
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href="#">{{ post.header }}</a>
+                                    <a href="{{ post.get_absolute_url }}">{{ post.header }}</a>
                                 </h4>
-                                <h6> Опубликовано {{ post.publish }} </h6>
-                                <p class="card-text">{{ post.body }}</p>
+                                <p class="card-text">{{ post.body|truncatewords:30|linebreaks }}</p>
                             </div>
                         </div>
                     </div>
