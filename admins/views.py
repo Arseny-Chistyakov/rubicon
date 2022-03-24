@@ -64,10 +64,6 @@ class UserAdminDeleteView(DeleteView):
     success_url = reverse_lazy('admins_special:admin_users')
     template_name = 'admins/admin-users-update-delete.html'
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(args, kwargs)
-        self.object = None
-
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         self.object.safe_delete_user()
