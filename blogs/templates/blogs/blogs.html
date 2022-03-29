@@ -2,12 +2,10 @@
 {% load static %}
 
 {% block css %}
-    <!-- Custom styles for this template -->
     <link href="{% static 'css/blogs.css' %}" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
-    <!-- Page Content -->
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -31,10 +29,10 @@
                 {% endfor %}
             </div>
 
-            <nav aria-label="Page navigation example justify-content-center ">
-                <ul class="pagination justify-content-center">
+            <nav aria-label="Page navigation example ">
+                <ul class="pagination mt-3">
                     <li class="page-item {% if not posts.has_previous %} disabled {% endif %}">
-                        <a class="page-link justify-content-center" href="{% if posts.has_previous %}
+                        <a class="page-link" href="{% if posts.has_previous %}
                                     {% url 'blogs:page' posts.previous_page_number %}
                                     {% else %} # {% endif %}" tabindex="-1" aria-disabled="true">
                             Previous

@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Рубикон - Блог</title>
-    {% block css %} {% endblock %}
+    <title>{{ title }}</title>
+    <link href="{% static 'css/products.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/zoom80.css' %}" rel="stylesheet"/>
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
 <body>
@@ -60,11 +60,63 @@
         </div>
     </div>
 </nav>
-
-{% block content %} {% endblock %}
-
-{% block footer %} {% endblock %}
-
+<div class="container container-product">
+    <div class="row mt-5">
+        <div class="col-lg-3">
+            <h3 class="my-4">Виды услуг</h3>
+            <div class="list-group">
+                {% for category in categories %}
+                    <a href="{% url 'products:category' category.id %}"
+                       class="list-group-item">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-9">
+            {% if messages or form.errors %}
+                <div class="alert alert-dismissible fade show
+                        {% if messages %} alert-success {% else %} alert-warning {% endif %}" role="alert"
+                     style="margin-top: 50px;">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {{ message }}
+                        {% endfor %}
+                    {% else %}
+                        {{ form.non_field_errors }}
+                    {% endif %}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+            <div class="row">
+                {% for product in products %}
+                    <div class=" mb-3 mt-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">{{ product.name }}</a>
+                                </h4>
+                                <h5>{{ product.price }} руб.</h5>
+                                <p class="card-text">{{ product.description }}</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a type="button" href="#" class="btn
+                                    btn-outline-success">
+                                    Отправить в корзину
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer-size bg-dark ">
+    <div class="container">
+        <p class="m-0 text-center text-white">&copy; ООО «Рубикон» {% now "Y" %}</p>
+    </div>
+</footer>
 <!-- Bootstrap core JavaScript -->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

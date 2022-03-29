@@ -11,6 +11,7 @@ urlpatterns = [
     path('admins-special/', include('admins.urls', namespace='admins_special')),
     path('blogs/', include('blogs.urls', namespace='blogs')),
     path('users/', include('users.urls', namespace='users')),
+    path('products/', include('products.urls', namespace='products')),
 
 ]
 
