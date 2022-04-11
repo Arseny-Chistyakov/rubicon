@@ -1,6 +1,7 @@
 import os.path
 from pathlib import Path
 
+import dj_database_url
 import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -85,6 +86,9 @@ DATABASES = {
     }
 }
 
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -122,13 +126,6 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-import dj_database_url
-
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
