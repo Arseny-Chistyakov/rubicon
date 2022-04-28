@@ -13,6 +13,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-1s7x1_@3*xven9@&8n$2a+s*k1*ke-@t7l+86atr_0nrpv+=am'
 
+from dotenv import load_dotenv
+
+load_dotenv(BASE_DIR / '.env')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -142,3 +146,19 @@ LOGIN_URL = "/users/login/"
 
 # Django Heroku
 django_heroku.settings(locals())
+
+# Verification in mail
+DOMAIN_NAME = 'http://mail.ru'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = False
+
+# вариант python -m smtpd -n -c DebuggingServer localhost:25
+
+# вариант логирования сообщений почты в виде файлов вместо отправки
+# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+# EMAIL_FILE_PATH = 'tmp/email-messages/'
+
+# EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None

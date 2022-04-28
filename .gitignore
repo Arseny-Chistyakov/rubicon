@@ -1,5 +1,9 @@
 .idea
-#media
 __pycache__/
-db.sqlite3
+tmp
+.env
 product.xlsx
+
+#Для деплоя на heroku
+#media
+#db.sqlite3
