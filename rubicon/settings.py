@@ -162,3 +162,5 @@ EMAIL_USE_SSL = False
 # EMAIL_FILE_PATH = 'tmp/email-messages/'
 
 # EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
+
+LOGIN_REDIRECT_URL = '/'
