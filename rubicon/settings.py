@@ -144,23 +144,22 @@ AUTH_USER_MODEL = "users.User"
 
 LOGIN_URL = "/users/login/"
 
+LOGIN_REDIRECT_URL = '/'
+
 # Django Heroku
 django_heroku.settings(locals())
 
 # Verification in mail
 DOMAIN_NAME = 'http://mail.ru'
 EMAIL_HOST = 'smtp.mail.ru'
-EMAIL_PORT = 465
+EMAIL_PORT = 2525
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-# вариант python -m smtpd -n -c DebuggingServer localhost:25
-
-# вариант логирования сообщений почты в виде файлов вместо отправки
-# EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-# EMAIL_FILE_PATH = 'tmp/email-messages/'
-
-# EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = None, None
-
-LOGIN_REDIRECT_URL = '/'
+# Для генерации ссылки в лог-файле
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = 'tmp/email-messages/'

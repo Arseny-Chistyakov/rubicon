@@ -1,5 +1,7 @@
-from django.contrib import messages
+from django.conf import settings
+from django.contrib import messages, auth
 from django.contrib.auth.views import LogoutView, LoginView
+from django.core.mail import send_mail
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import UpdateView, FormView
@@ -18,13 +20,33 @@ class UserRegisterFormView(FormView):
     def post(self, request, *args, **kwargs):
         form = self.form_class(data=request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(self.request, 'Register has been finished')
-            return HttpResponseRedirect(reverse('users:login'))
+            user = form.save()
+            if self.send_verify_link(user):
+                messages.success(self.request, 'Для завершения регистрации пройдите верификацию по почте!')
+                return HttpResponseRedirect(reverse('users:login'))
+            else:
+                messages.error(request, form.errors)
         else:
             messages.error(request, form.errors)
         context = {'form': form}
         return render(request, self.template_name, context)
+
+    def send_verify_link(self, user):
+        verify_link = reverse('users:verify', args=[user.email, user.activation_key])
+        subject = f'Для активации учетной записи {user.username} пройдите по ссылки'
+        # {settings.DOMAIN_NAME} убрал настройку чтобы в начале ссылки для активации не было mail.ru пока что
+        message = f'Для подтверждения учетной записи {user.username} на портале \n {verify_link}'
+        return send_mail(subject, message, settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+
+    def verify(self, email, activate_key):
+        user = User.objects.get(email=email)
+        if user and user.activation_key == activate_key and not user.is_activation_key_expires():
+            user.activation_key = ''
+            user.activation_key_expires = None
+            user.is_active = True
+            user.save()
+            auth.login(self, user)
+        return render(self, 'users/verification.html')
 
 
 class UserLoginFormView(LoginView):
@@ -47,7 +69,7 @@ class UserProfileFormView(UpdateView):
         return User.objects.get(id=self.request.user.pk)
 
     def form_valid(self, form):
-        messages.success(self.request, 'Data has been saved')
+        messages.success(self.request, 'Данные успешно сохранены')
         super(UserProfileFormView, self).form_valid(form)
         return HttpResponseRedirect(self.get_success_url())
 

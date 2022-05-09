@@ -6,7 +6,9 @@ app_name = 'users'
 
 urlpatterns = [
     path('login/', UserLoginFormView.as_view(), name='login'),
-    path('registration/', UserRegisterFormView.as_view(), name='registration'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
     path('profile/', UserProfileFormView.as_view(), name='profile'),
+    path('registration/', UserRegisterFormView.as_view(), name='registration'),
+    path('verify/<str:email>/<str:activate_key>/', UserRegisterFormView.verify, name='verify'),
+
 ]

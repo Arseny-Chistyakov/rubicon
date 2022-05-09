@@ -6,6 +6,7 @@ from django.utils.timezone import now
 
 
 class User(AbstractUser):
+    email = models.EmailField(unique=True)
     image = models.ImageField(upload_to='users_images', null=True, blank=True)
     activation_key = models.CharField(max_length=128, blank=True)
     activation_key_expires = models.DateTimeField(auto_now=True, blank=True)
