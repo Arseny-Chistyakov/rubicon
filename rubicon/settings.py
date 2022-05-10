@@ -3,6 +3,7 @@ from pathlib import Path
 
 import dj_database_url
 import django_heroku
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,9 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1s7x1_@3*xven9@&8n$2a+s*k1*ke-@t7l+86atr_0nrpv+=am'
-
-from dotenv import load_dotenv
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 load_dotenv(BASE_DIR / '.env')
 
@@ -36,6 +35,7 @@ INSTALLED_APPS = [
     'users',
     'admins',
     'products',
+    'baskets',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +62,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'rubicon.context_processors.basket',
             ],
         },
     },
@@ -82,11 +83,11 @@ WSGI_APPLICATION = 'rubicon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'rubicon',
-        'USER': 'postgres',
-        'PASSWORD': 'f3874nf783yn',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('NAME'),
+        'USER': os.getenv('USER'),
+        'PASSWORD': os.getenv('PASSWORD'),
+        'HOST': os.getenv('HOST'),
+        'PORT': os.getenv('PORT'),
     }
 }
 
@@ -140,9 +141,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Users
-AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = 'users.User'
 
-LOGIN_URL = "/users/login/"
+LOGIN_URL = '/users/login/'
 
 LOGIN_REDIRECT_URL = '/'
 
