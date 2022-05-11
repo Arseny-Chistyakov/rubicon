@@ -35,7 +35,7 @@
                         <a class="page-link" href="{% if posts.has_previous %}
                                     {% url 'blogs:page' posts.previous_page_number %}
                                     {% else %} # {% endif %}" tabindex="-1" aria-disabled="true">
-                            Previous
+                            Предыдущая
                         </a>
                     </li>
 
@@ -49,7 +49,7 @@
                         <a class="page-link"
                            href="{% if posts.has_next %} {% url 'blogs:page' posts.next_page_number %}
                                      {% else %} # {% endif %}">
-                            Next
+                            Следующая
                         </a>
                     </li>
                 </ul>

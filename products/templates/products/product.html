@@ -8,6 +8,8 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <title>{{ title }}</title>
+    <link href="{% static 'css/profile.css' %}" rel="stylesheet"/>
+    {# Для коррек отображения панели навигации #}
     <link href="{% static 'css/products.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/zoom80.css' %}" rel="stylesheet"/>
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
@@ -22,22 +24,28 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto box_block ">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'blogs:index' %}"> Блог </a>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'products:index' %}"> Продукты </a>
                     {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle"></i>
+                            <a class="nav-link dropdown-toggle box_block1" href="#" id="navbarDropdown"
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ user.username |default:'Пользователь' }}
+                                {% if user.image %}
+                                    <img class="circle-avatar ml-3" src="{{ user.image.url }}" alt="" width="50px"
+                                         height="50px">
+                                {% else %}
+                                    <i class="fas fa-user-circle"></i>
+                                {% endif %}
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu ba" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{% url 'users:profile' %}">Профиль</a></li>
                                 {% if user.is_staff or user.is_superuser %}
                                     <li>
-                                        <a class="dropdown-item" href="{% url 'admin:index' %}">
-                                            Админ-панель</a>
+                                        <a class="dropdown-item ba" href="{% url 'admin:index' %}">Админ-панель</a>
                                     </li>
                                 {% endif %}
                                 <li>
@@ -48,7 +56,8 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:login' %}"> Войти <i class="fas fa-sign-in-alt"></i>
+                            <a class="nav-link" href="{% url 'users:login' %}">Войти
+                                <i class="fas fa-sign-in-alt"></i>
                             </a>
                         </li>
                     {% endif %}
