@@ -27,6 +27,15 @@
                         </div>
                     {% endif %}
                 {% endfor %}
+                {% if comments.count > 0 %}
+                    <h5 class="card-title">
+                        Всего комментариев под постом - {{ comments.count }}
+                    </h5>
+                {% else %}
+                    <h5 class="card-title">
+                        Комментариев пока нет
+                    </h5>
+                {% endif %}
                 {% if user.is_authenticated %}
                     <hr class="hr-shadow">
                     <h5 class="card-title"> Ваш ответ </h5>

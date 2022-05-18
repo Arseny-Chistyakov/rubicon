@@ -181,6 +181,7 @@ EMAIL_FILE_PATH = 'tmp/email-messages/'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'social_core.backends.vk.VKOAuth2',
+    # 'social_core.backends.github.GithubOAuth2',
 )
 
 SOCIAL_AUTH_PIPELINE = (
@@ -194,6 +195,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
 
     'rubicon.pipelines.save_user_profile',
+    # 'github_app.auth_pipeline.user',
 )
 
 # # github
