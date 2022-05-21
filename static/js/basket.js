@@ -6,7 +6,7 @@ window.onload = function () {
 
         $.ajax({
             headers: {
-                "X-Requested-With": "XMLHttpRequest",
+                'X-Requested-With': 'XMLHttpRequest',
             },
             url: "/baskets/basket_edit/" + basketID + '/' + basketQuantity + '/',
             success: function (data) {

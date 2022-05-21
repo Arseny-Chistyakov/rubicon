@@ -46,15 +46,24 @@
                             </form>
                         </div>
                         <div class="card-footer text-center">
-                            <div class="small">
+
+                            <label for="">Вход через социальные сети</label>
+                            <button class="btn btn-round form-control">
+                                <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/">
+                                    <i class="fab fa-vk"></i>
+                                </a>
+                            </button>
+                            <hr class="hr-shadow">
+                            <button class="btn btn-round form-control">
                                 <a href="{% url 'users:registration' %}">
                                     Нужен аккаунт? Зарегистрируйся!
                                 </a>
-                            </div>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </main>
 {% endblock %}
