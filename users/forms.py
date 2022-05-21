@@ -4,7 +4,7 @@ import random
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
 
-from users.models import User
+from users.models import User, UserProfile
 
 
 class UserLoginForm(AuthenticationForm):
@@ -51,7 +51,24 @@ class UserProfileForm(UserChangeForm):
     image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'custom-file-input'}), required=False)
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control py-4'}))
     email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control py-4', 'readonly': True}))
+    age = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'form-control'}), required=False)
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'image', 'username', 'email')
+        fields = ('first_name', 'last_name', 'image', 'username', 'email', 'age')
+
+
+class UserProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        exclude = ('user',)
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileEditForm, self).__init__(*args, **kwargs)
+        for filed_name, field in self.fields.items():
+            if filed_name != 'gender' and filed_name != 'langs':
+                field.widget.attrs['class'] = 'form-control py-4'
+            elif filed_name == 'about':
+                field.widget.attrs['class'] = 'autosize'
+            else:
+                field.widget.attrs['class'] = 'form-control'

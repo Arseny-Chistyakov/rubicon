@@ -2,11 +2,11 @@ from django.conf import settings
 from django.contrib import messages, auth
 from django.contrib.auth.views import LogoutView, LoginView
 from django.core.mail import send_mail
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import UpdateView, FormView
 
-from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm, UserProfileEditForm
 from users.models import User
 
 
@@ -45,7 +45,7 @@ class UserRegisterFormView(FormView):
             user.activation_key_expires = None
             user.is_active = True
             user.save()
-            auth.login(self, user)
+            auth.login(self, user, backend='django.contrib.auth.backends.ModelBackend')
         return render(self, 'users/verification.html')
 
 
@@ -64,6 +64,18 @@ class UserProfileFormView(UpdateView):
     form_class = UserProfileForm
     success_url = reverse_lazy('users:profile')
     template_name = 'users/profile.html'
+
+    def post(self, request, *args, **kwargs):
+        form = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user)
+        profile_form = UserProfileEditForm(data=request.POST, files=request.FILES, instance=request.user.userprofile)
+        if form.is_valid() and profile_form.is_valid():
+            form.save()
+        return redirect(self.success_url)
+
+    def get_context_data(self, **kwargs):
+        context = super(UserProfileFormView, self).get_context_data()
+        context['profile'] = UserProfileEditForm(instance=self.request.user.userprofile)
+        return context
 
     def get_object(self, queryset=None):
         return User.objects.get(id=self.request.user.pk)
