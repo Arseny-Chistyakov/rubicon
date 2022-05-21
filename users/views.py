@@ -73,7 +73,32 @@ class UserProfileFormView(UpdateView):
         super(UserProfileFormView, self).form_valid(form)
         return HttpResponseRedirect(self.get_success_url())
 
+    # добавлено в контекстный процессор
+    # def get_context_data(self, **kwargs):
+    #     context = super(UserProfileFormView, self).get_context_data()
+    #     context['baskets'] = Basket.objects.filter(user=self.request.user)
+    #     return context
 #
+# @login_required
+# def profile(request):
+#     user = request.user
+#     if request.method == 'POST':
+#         form = UserProfileForm(instance=user, files=request.FILES, data=request.POST)
+#         if form.is_valid():
+#             messages.success(request, 'Data has been saved ')
+#             form.save()
+#             return HttpResponseRedirect(reverse('users:profile'))
+#         else:
+#             print(form.errors)
+#     else:
+#         form = UserProfileForm(instance=user)
+#     context = {
+#         'title': 'GeekShop - Профиль',
+#         'form': form,
+#         'baskets': Basket.objects.filter(user=user),
+#     }
+#     return render(request, 'users/profile.html', context)
+
 # def registration(request):
 #     if request.method == 'POST':
 #         form = UserRegistrationForm(data=request.POST)
@@ -108,22 +133,3 @@ class UserProfileFormView(UpdateView):
 #         form = UserLoginForm()
 #     context = {'title': 'GeekShop - Авторизация', 'form': form}
 #     return render(request, 'users/login.html', context=context)
-
-# @login_required
-# def profile(request):
-#     user = request.user
-#     if request.method == 'POST':
-#         form = UserProfileForm(instance=user, files=request.FILES, data=request.POST)
-#         if form.is_valid():
-#             messages.success(request, 'Data has been saved ')
-#             form.save()
-#             return HttpResponseRedirect(reverse('users:profile'))
-#         else:
-#             print(form.errors)
-#     else:
-#         form = UserProfileForm(instance=user)
-#     context = {
-#         'title': 'GeekShop - Профиль',
-#         'form': form,
-#     }
-#     return render(request, 'users/profile.html', context=context)

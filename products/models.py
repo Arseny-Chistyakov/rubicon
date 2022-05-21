@@ -15,10 +15,15 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     price = models.DecimalField(max_digits=20, decimal_places=2, default=0)
+    quantity = models.PositiveIntegerField(default=0)
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
 
     def __str__(self):
         return f' Продукт: {self.name}| Категория: {self.category.name}'
+
+    def safe_delete_product(self):
+        self.quantity = 0
+        self.save()
 
 
 def export_to_sqlite():

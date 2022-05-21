@@ -35,13 +35,13 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{% url 'users:profile' %}">Профиль</a></li>
                                 {% if user.is_staff or user.is_superuser %}
-                                    <li>
-                                        <a class="dropdown-item" href="{% url 'admins_special:index' %}">
-                                            Админ-панель</a>
-                                    </li>
+                                    {#                                    <li>#}
+                                    {#                                        <a class="dropdown-item" href="{% url 'admins_special:index' %}">#}
+                                    {#                                            Админ-панель</a>#}
+                                    {#                                    </li>#}
                                     <li>
                                         <a class="dropdown-item" href="{% url 'admin:index' %}">
-                                            Админ-панель(Django Admin)</a>
+                                            Админ-панель</a>
                                     </li>
                                 {% endif %}
                                 <li>
