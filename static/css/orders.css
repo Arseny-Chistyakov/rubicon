@@ -1,21 +1,8 @@
 body {
-    padding-top: 56px;
     background-color: #c4d4e7 !important;
-}
-
-#card {
-    margin-top: 56px;
-    margin-bottom: 56px;
-}
-
-.info_about_comment {
-    font-weight: bold;
-    font-size: 16px;
-    font-style: oblique;
-}
-
-.public_comment {
-    font-style: oblique;
+    padding-top: 106px;
+    padding-left: 80px;
+    padding-right: 80px;
 }
 
 .hr-shadow {
@@ -25,10 +12,6 @@ body {
     border: none;
     border-top: 1px solid #333;
     box-shadow: 0 10px 10px -10px #8c8b8b inset;
-}
-
-.autosize {
-    resize: none;
 }
 
 #start-purchase-btn {

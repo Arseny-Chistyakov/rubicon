@@ -22,7 +22,7 @@
                 {% for comment in post.comments.all %}
                     {% if comment.active %}
                         <div>
-                            <p class="info_about_comment"> Комментирует {{ comment.name }} {{ comment.created }} </p>
+                            <p class="info_about_comment"> {{ comment.created }} - комментирует {{ comment.name }} </p>
                             {{ comment.body|linebreaks }}
                         </div>
                     {% endif %}
@@ -42,11 +42,11 @@
                     <form action="{% url 'blogs:post_detail' post.slug %}" method="post">
                         {{ comment_form.as_p }}
                         {% csrf_token %}
-                        <div class="form-row">
-                            <div class="col-lg-12" style="margin-top: 33px;">
-                                <input class="btn btn-info btn-block" type="submit" value="Опубликовать комментарии">
-                            </div>
+                        <div style="text-align: center">
+                            <input id="start-purchase-btn" class="btn btn-info" type="submit"
+                                   value="Опубликовать комментарии">
                         </div>
+
                     </form>
                 {% endif %}
             </div>

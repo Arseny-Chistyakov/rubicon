@@ -34,15 +34,10 @@
                             <a class="nav-link dropdown-toggle box_block1" href="#" id="navbarDropdown"
                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ user.username |default:'Пользователь' }}
-                                {% if user.image %}
-                                    <img class="circle-avatar ml-3" src="{{ user.image.url }}" alt="" width="50px"
-                                         height="50px">
-                                {% else %}
-                                    <i class="fas fa-user-circle"></i>
-                                {% endif %}
                             </a>
                             <ul class="dropdown-menu ba" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{% url 'users:profile' %}">Профиль</a></li>
+                                <li><a class="dropdown-item" href="{% url 'orders:list' %}">Заказы</a></li>
                                 {% if user.is_staff or user.is_superuser %}
                                     <li>
                                         <a class="dropdown-item ba" href="{% url 'admin:index' %}">Админ-панель</a>

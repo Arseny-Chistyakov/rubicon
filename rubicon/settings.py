@@ -33,9 +33,9 @@ INSTALLED_APPS = [
 
     'blogs',
     'users',
-    'admins',
     'products',
     'baskets',
+    'orders',
 
     'social_django',
 ]
@@ -125,7 +125,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 # TIME_ZONE = 'W-SU' было
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'W-SU'
 
 USE_I18N = True
 
