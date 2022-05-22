@@ -16,7 +16,7 @@ class Basket(models.Model):
 
     # отображение суммы товара с учетом количества в корзине
     def sum(self):
-        return self.quantity * self.product.price
+        return int(self.quantity * self.product.price)
 
     # подсчёт общего количества товаров в корзине
     def total_quantity(self):

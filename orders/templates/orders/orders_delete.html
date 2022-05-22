@@ -1,0 +1,45 @@
+{% extends 'orders/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="category_delete">
+        <div class="h2">Уверены, что хотите отменить заказ №{{ object.pk }}?</div>
+        {% if object %}
+            <p>
+                <b>Заказчик:</b> {{ user.last_name }} {{ user.first_name }}
+            </p>
+            <div class="basket_list mb-3">
+                <b>В заказе:</b>
+                {% for item in object.orderitems.select_related %}
+                    <div class="basket_record">
+                        <img style="height: 150px" src="{{ item.product.image.url }}"
+                             alt="{{ item.product.short_desc }}">
+                        <span class="category_name">
+                   {{ item.product.category.name }}
+               </span>
+                        <span class="product_name">{{ item.product.name }}, </span>
+                        <span class="product_price">{{ item.product.price }}&nbspруб</span>
+                        <span class="product_quantitiy">x {{ item.quantity }} шт.
+               </span>
+                        <span class="product_cost">= {{ item.get_product_cost }}&nbspруб
+               </span>
+                    </div>
+                {% endfor %}
+            </div>
+            <p>
+                <b>Общее количество товаров:</b> {{ object.get_total_quantity }}
+            </p>
+            <p>
+                <b>Общая стоимость:</b> {{ object.get_total_cost }} руб.
+            </p>
+            <form action="{% url 'orders:delete' object.pk %}" method="post">
+                {% csrf_token %}
+                <input id="start-purchase-btn" class="btn btn-lg mb-5" type="submit" value="Отменить заказ">
+                <button id="start-purchase-btn" type="button" class="btn btn-lg mb-5 ml-3">
+                    <a id="start-purchase-link" href="{% url 'orders:list' %}">Вернуться к списку заказов</a>
+                </button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

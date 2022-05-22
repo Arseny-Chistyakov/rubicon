@@ -12,10 +12,10 @@ class Post(models.Model):
     )
     header = models.CharField(max_length=256)
     image = models.ImageField(upload_to='blogs_post_images')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
     slug = models.SlugField(max_length=250, unique_for_date='publish', unique=True, verbose_name='URL',
                             db_index=True, blank=True)
-    body = models.TextField()
+    body = models.TextField(verbose_name='Содержимое поста')
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -33,9 +33,9 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    name = models.CharField(max_length=80)
-    email = models.EmailField()
-    body = models.TextField()
+    name = models.CharField(verbose_name='Имя или никнейм', max_length=128)
+    email = models.EmailField(verbose_name='Почта')
+    body = models.TextField(verbose_name='Ваш комментарий')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
@@ -44,4 +44,4 @@ class Comment(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-        return 'Comment by {} on {}'.format(self.name, self.post)
+        return '{} прокомментировал {}'.format(self.name, self.post)

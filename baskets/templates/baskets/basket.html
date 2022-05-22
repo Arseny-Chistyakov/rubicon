@@ -17,19 +17,15 @@
                                 <input name="{{ basket.id }}" type="number" class="form-control"
                                        value="{{ basket.quantity }}" min="0">
                             </div>
-                            <div class="col-lg-4">{{ basket.sum }} руб.</div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 mt-1">{{ basket.sum }}руб.</div>
+                            <div class="col-lg-4 mt-1">
                                 <a href="{% url 'baskets:basket_remove' basket.id %}"><i class="fas fa-trash"></i></a>
                             </div>
-
-
-                            <div class="col-lg-5">
-                                <a href="{% url 'baskets:basket_edit' basket.id basket.quantity %}">
-                                    Кнопка-проверка для ajax-запрос
-                                </a>
-                            </div>
-
-
+                            {#                            <div class="col-lg-5">#}
+                            {#                                <a href="{% url 'baskets:basket_edit' basket.id basket.quantity %}">#}
+                            {#                                    Кнопка-проверка для ajax-запрос#}
+                            {#                                </a>#}
+                            {#                            </div>#}
                         </div>
                     </li>
                 </ul>
@@ -37,11 +33,11 @@
         {% endfor %}
         <div class="card mb-3">
             <div class="card-footer">
-                <p class="float-left">Итого к оплате</p>
+                <p class="float-left">Итого к оплате:</p>
                 <h4 class="float-right">{{ baskets.0.total_sum }} руб.</h4>
             </div>
         </div>
-        <a class="btn btn-success btn-lg float-right mb-lg-5" href="#">
+        <a class="btn btn-success btn-lg float-right mb-lg-5" href="{% url 'orders:list' %}">
             Оформить заказ
         </a>
     {% else %}
