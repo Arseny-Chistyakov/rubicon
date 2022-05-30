@@ -12,10 +12,23 @@
     margin-top: 85px;
 }
 
-.circle-avatar{
+.circle-avatar {
     border-radius: 50%;
 }
 
 .autosize {
     resize: none;
+}
+
+/* единый стиль кнопок*/
+#start-purchase-btn {
+    background-color: #23364e;
+    border-color: #23364e;
+    color: white;
+    margin-top: 20px;
+}
+
+#start-purchase-link {
+    text-decoration: none;
+    color: white;
 }

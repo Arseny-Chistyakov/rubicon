@@ -80,23 +80,27 @@ WSGI_APPLICATION = 'rubicon.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('NAME'),
-        'USER': os.getenv('USER'),
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': os.getenv('HOST'),
-        'PORT': os.getenv('PORT'),
+SERVER = False
+if SERVER:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.getenv('NAME'),
+            'USER': os.getenv('USER'),
+            'PASSWORD': os.getenv('PASSWORD'),
+            'HOST': os.getenv('HOST'),
+            'PORT': os.getenv('PORT'),
+        }
     }
-}
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+    STATICFILES_DIRS = (BASE_DIR / 'static',)
 
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
@@ -125,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 # TIME_ZONE = 'W-SU' было
-TIME_ZONE = 'W-SU'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -142,8 +146,12 @@ STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# MEDIA_ROOT_SHORT = 'media'
+# MEDIA_URL = f'/{MEDIA_ROOT_SHORT}/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, f'{MEDIA_ROOT_SHORT}')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

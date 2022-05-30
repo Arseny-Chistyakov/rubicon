@@ -57,10 +57,12 @@
                 {% endfor %}
             </table>
             <p>
-                <b>Общее количество товаров:</b> {{ object.get_total_quantity }}
+                <b>Общее количество товаров:</b>
+                <span class="order_total_quantity">{{ object.get_total_quantity }}</span>
             </p>
             <p>
-                <b>Общая стоимость:</b> {{ object.get_total_cost }} руб.
+                <b>Общая стоимость:</b>
+                <span class="order_total_cost">{{ object.get_total_cost }}</span> руб.
             </p>
             <div class="d-flex justify-content-center">
                 <button id="start-purchase-btn" type="submit" value="сохранить" class="btn btn-lg mb-1">

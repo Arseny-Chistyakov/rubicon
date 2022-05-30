@@ -7,7 +7,7 @@ body {
     margin-top: 45px !important;
     overflow: hidden
 }
-
+/* единый стиль кнопок*/
 #start-purchase-btn {
     background-color: #23364e;
     border-color: #23364e;
