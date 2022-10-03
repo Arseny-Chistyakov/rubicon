@@ -1,4 +1,5 @@
 from datetime import timedelta
+from uuid import uuid4
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -8,9 +9,10 @@ from django.utils.timezone import now
 
 
 class User(AbstractUser):
-    age = models.PositiveIntegerField(default=18)
-    email = models.EmailField(unique=True)
-    image = models.ImageField(upload_to='users_images', null=True, blank=True)
+    uid = models.UUIDField(primary_key=True, default=uuid4, verbose_name='ID')
+    age = models.PositiveIntegerField(default=18, verbose_name='Возраст')
+    email = models.EmailField(unique=True, verbose_name='Почта')
+    image = models.ImageField(upload_to='users_images', null=True, blank=True, verbose_name='Фотография')
     activation_key = models.CharField(max_length=128, blank=True)
     activation_key_expires = models.DateTimeField(auto_now=True, blank=True)
 
@@ -27,16 +29,15 @@ class User(AbstractUser):
 class UserProfile(models.Model):
     MALE = 'M'
     FEMALE = 'W'
-
     GENDER_CHOICES = (
         (MALE, 'М'),
         (FEMALE, 'Ж'),
     )
-
-    user = models.OneToOneField(User, unique=True, null=True, db_index=True, on_delete=models.CASCADE)
-    about = models.TextField(verbose_name='о себе', blank=True, null=False)
-    gender = models.CharField(verbose_name='пол', choices=GENDER_CHOICES, blank=True, max_length=2)
-    langs = models.CharField(verbose_name='язык', blank=True, max_length=100, default='RU')
+    user = models.OneToOneField(User, unique=True, db_index=True, on_delete=models.CASCADE, primary_key=True,
+                                verbose_name='Профиль пользователя')
+    about = models.TextField(blank=True, null=False, verbose_name='О себе')
+    gender = models.CharField(choices=GENDER_CHOICES, blank=True, max_length=2, verbose_name='Пол')
+    langs = models.CharField(blank=True, max_length=100, default='RU', verbose_name='Язык')
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):

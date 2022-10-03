@@ -69,6 +69,6 @@ class UserProfileEditForm(forms.ModelForm):
             if filed_name != 'gender' and filed_name != 'langs':
                 field.widget.attrs['class'] = 'form-control py-4'
             elif filed_name == 'about':
-                field.widget.attrs['class'] = 'autosize'
+                field.widget.attrs['class'] = 'form-control'
             else:
                 field.widget.attrs['class'] = 'form-control'

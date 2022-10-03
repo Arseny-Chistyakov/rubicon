@@ -1,0 +1,68 @@
+[
+  {
+    "model": "users.user",
+    "pk": "70aa8284-1732-41eb-a3de-8d8c2eaf82ce",
+    "fields": {
+      "password": "pbkdf2_sha256$260000$AobHlM9mLTb2W8wQ317hH6$wRygqX0Gq8p58qf6tPKpdXbEcT5ncSqqRXMkJlLtzZY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "sa",
+      "first_name": "Арсений",
+      "last_name": "Чистяков",
+      "is_staff": false,
+      "is_active": false,
+      "date_joined": "2022-09-27T01:21:14.781Z",
+      "age": 18,
+      "email": "samson2o00289@gmail.com",
+      "image": "",
+      "activation_key": "0d10c032a9daba7a28e3618f99710738577e9290",
+      "activation_key_expires": "2022-09-27T01:21:14.993Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": "c63f62c7-5574-4a6b-a0b5-2acf0120427d",
+    "fields": {
+      "password": "pbkdf2_sha256$260000$B8diZc2vENtKw7rUQg52n2$o0dnWNp2UNPi6NwfhHNHGvpSIPgXA0/Cw9dfghXldDE=",
+      "last_login": "2022-09-27T01:21:56.593Z",
+      "is_superuser": true,
+      "username": "samson",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-09-27T00:55:10.533Z",
+      "age": 18,
+      "email": "admin@mail.ru",
+      "image": "",
+      "activation_key": "",
+      "activation_key_expires": "2022-09-27T00:55:10.650Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": "f057fc5b-fcc9-4ebf-84f6-6f8bef4f92ad",
+    "fields": {
+      "password": "sghFT243d-ruu",
+      "last_login": "2022-09-27T00:55:49Z",
+      "is_superuser": false,
+      "username": "i",
+      "first_name": "Арсений",
+      "last_name": "Чистяков",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-09-27T00:55:41Z",
+      "age": 20,
+      "email": "samson200289@gmail.com",
+      "image": "",
+      "activation_key": "",
+      "activation_key_expires": "2022-09-27T00:56:17.627Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

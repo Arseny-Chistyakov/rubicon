@@ -1,42 +1,32 @@
 {% extends "blogs/base.html" %}
-{% load static %}
-
-{% block css %}
-    <link href="{% static 'css/blogs.css' %}" rel="stylesheet"/>
-{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div id="card" class="card h-100">
-            <img class="card-img-top pt-4 pb-3 pl-4 pr-4" src="{{ post.image.url }}" alt=""/>
+    <div class="container-sm mt-5 mb-5">
+        <div id="card" class="card" style="background-color: #ccddec">
             <div class="card-body">
-                <h4 class="card-title">
-                    {{ post.header }}
-                </h4>
-                <p class="public_comment">
-                    Опубликовано {{ post.publish }} пользователем - {{ post.author }}
-                </p>
-                <p class="card-text">
-                    {{ post.body|linebreaks }}
-                </p>
+                <div class="d-flex float-sm-left">
+                    <img class="rounded ml-2 mr-4 mt-2" src="{{ post.image.url }}" width="100%"/>
+                </div>
+                <h4 class="card-title"> {{ post.title }} </h4>
+                <p class="text-capitalize"> Опубликовано {{ post.publish }}</p>
+                <p class="card-text"> {{ post.body|linebreaks }} </p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"> Комментарии <span class="text-muted">• {{ post.comments.count }}</span></h5>
                 {% for comment in post.comments.all %}
                     {% if comment.active %}
-                        <div>
-                            <p class="info_about_comment"> Комментирует {{ comment.name }} {{ comment.created }} </p>
-                            {{ comment.body|linebreaks }}
-                        </div>
+                        <p class="">{{ user }} <span class="text-muted">• {{ comment.created }}</span></p>
+                        {{ comment.body|linebreaks }}
                     {% endif %}
                 {% endfor %}
                 {% if user.is_authenticated %}
                     <hr class="hr-shadow">
-                    <h5 class="card-title"> Ваш ответ </h5>
+                    <h5 class="card-title"> Ваш комментарий </h5>
                     <form action="{% url 'blogs:post_detail' post.slug %}" method="post">
-                        {{ comment_form.as_p }}
                         {% csrf_token %}
-                        <div class="form-row">
-                            <div class="col-lg-12" style="margin-top: 33px;">
-                                <input class="btn btn-info btn-block" type="submit" value="Опубликовать комментарии">
-                            </div>
+                        {{ comment_form.as_p }}
+                        <div class="d-flex justify-content-center">
+                            <button class="btn-custom" type="submit">Опубликовать комментарии</button>
                         </div>
                     </form>
                 {% endif %}

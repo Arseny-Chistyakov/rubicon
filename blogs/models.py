@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -10,38 +12,42 @@ class Post(models.Model):
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
-    header = models.CharField(max_length=256)
-    image = models.ImageField(upload_to='blogs_post_images')
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=250, unique_for_date='publish', unique=True, verbose_name='URL',
-                            db_index=True, blank=True)
-    body = models.TextField()
-    publish = models.DateTimeField(default=timezone.now)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    uid = models.UUIDField(primary_key=True, default=uuid4, verbose_name='ID')
+    title = models.CharField(max_length=256, verbose_name='Заголовок поста')
+    image = models.ImageField(upload_to='blogs_post_images', verbose_name='Изображение поста')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор поста')
+    slug = models.SlugField(max_length=250, unique_for_date='publish', unique=True,
+                            db_index=True, blank=True, verbose_name='URL')
+    body = models.TextField(verbose_name='Содержимое поста')
+    publish = models.DateTimeField(default=timezone.now, verbose_name='Время публикации поста')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Время создания поста')
+    updated = models.DateTimeField(auto_now=True, verbose_name='Время изменения поста')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft', verbose_name='Статус поста')
 
     class Meta:
         ordering = ('-publish',)
 
     def __str__(self):
-        return self.header
+        return self.title
 
     def get_absolute_url(self):
         return reverse('blogs:post_detail', args=[self.slug])
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    name = models.CharField(max_length=80)
-    email = models.EmailField()
-    body = models.TextField()
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    active = models.BooleanField(default=True)
+    uid = models.UUIDField(primary_key=True, default=uuid4, verbose_name='ID')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments',
+                             verbose_name='Комментируемый пост')
+    # TODO: user foreignkey
+    name = models.CharField(max_length=128, verbose_name='Имя или никнейм комментатора')
+    email = models.EmailField(verbose_name='Почта комментатора')
+    body = models.TextField(verbose_name='Комментарий')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Комментарий создан')
+    updated = models.DateTimeField(auto_now=True, verbose_name='Комментарий изменен')
+    active = models.BooleanField(default=True, verbose_name='Статус комментария')
 
     class Meta:
         ordering = ('created',)
 
     def __str__(self):
-        return 'Comment by {} on {}'.format(self.name, self.post)
+        return '{} прокомментировал {}'.format(self.name, self.post)

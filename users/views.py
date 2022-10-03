@@ -78,7 +78,7 @@ class UserProfileFormView(UpdateView):
         return context
 
     def get_object(self, queryset=None):
-        return User.objects.get(id=self.request.user.pk)
+        return User.objects.get(pk=self.request.user.pk)
 
     def form_valid(self, form):
         messages.success(self.request, 'Данные успешно сохранены')
