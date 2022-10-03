@@ -3,6 +3,7 @@ from django import forms
 from blogs.models import Comment
 
 
+# TODO: избавиться от формы
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment

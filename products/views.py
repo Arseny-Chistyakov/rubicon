@@ -1,22 +1,19 @@
 from django.shortcuts import render
 
-from products.models import ProductCategory, Product, export_to_sqlite
+from .models import Product, ProductCategory
 
 
 def index(request):
-    context = {'title': 'Рубикон - Продукты'}
-    return render(request, 'products/product.html', context=context)
+    return render(request, 'products/product.html', context={'title': 'Услуги'})
 
 
-def products(request, category_id=None):
-    if Product.objects.count() == 0:
-        export_to_sqlite()
+def filter_category_products(request, category_id=None):
     if category_id:
         products = Product.objects.filter(category_id=category_id)
     else:
         products = Product.objects.all()
     context = {
-        'title': 'Рубикон - Продукты',
+        'title': 'Услуги',
         'categories': ProductCategory.objects.all(),
         'products': products,
     }

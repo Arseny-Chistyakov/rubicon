@@ -7,8 +7,7 @@ from blogs.models import Post, Comment
 
 
 def index(request):
-    context = {'title': 'Рубикон'}
-    return render(request, 'blogs/index.html', context=context)
+    return render(request, 'blogs/index.html', context={'title': 'Рубикон'})
 
 
 def blogs(request, page=1):
@@ -21,7 +20,7 @@ def blogs(request, page=1):
     except EmptyPage:
         posts_paginator = paginator.page(paginator.num_pages)
     context = {
-        'title': 'Рубикон - Блог',
+        'title': 'Блог',
         'posts': posts_paginator,
     }
     return render(request, 'blogs/blogs.html', context=context)
@@ -39,7 +38,9 @@ def post_detail(request, post_slug):
             return HttpResponseRedirect(request.path)
     else:
         comment_form = CommentForm()
-    return render(request, 'blogs/post_detail.html',
-                  {'post': post,
-                   'comments': comments,
-                   'comment_form': comment_form})
+    context = {
+        'title': 'Подробнее о посте',
+        'post': post,
+        'comments': comments,
+        'comment_form': comment_form}
+    return render(request, 'blogs/post_detail.html', context=context)

@@ -1,0 +1,104 @@
+body {
+    background-color: #c4d4e7 !important;
+    padding-top: 56px;
+    background: url("../vendor/img/wallpaper.jpg") no-repeat center top fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    /*user-select: none;*/
+    font-family: URW Palladio L, serif;
+!important;
+}
+
+p, h4, h5 {
+    color: #3F5368;
+}
+
+.index_text {
+    background-color: #D1EBFF;
+    border-radius: 0.6rem;
+    font-size: 22px;
+}
+
+/* кастомная кнопка*/
+.btn-custom {
+    color: #fff;
+    background-color: #32373d;
+    border-color: #32373d;
+    padding: 0.5rem 1rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+    display: block;
+    cursor: pointer;
+    /*lg-version: */
+    /*!*font-size: 1.25rem;*!*/
+    /*!*width: 100%;*!*/
+}
+
+.hr-shadow {
+    margin: 15px 0;
+    padding: 0;
+    height: 20px;
+    border: none;
+    border-top: 1px solid #333;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+.hr-shadow-category {
+    margin: 0;
+    padding: 0;
+    height: 20px;
+    border: none;
+    border-top: 1px solid #333;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+.my_link {
+    text-decoration: none;
+    color: #303035;
+
+}
+
+.my_link:hover {
+    text-decoration: none;
+    color: #5a5a5d;
+    position: relative;
+    /*text-shadow: 1px 1px white, 2px 2px #6a5f55;*/
+}
+
+
+/* Переделанный page-link для пагинации страниц постов */
+.page-link-custom {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #303035;
+    background-color: #ccddec;
+    border: 1px solid #dee2e6;
+}
+
+.page-link-custom:hover {
+    z-index: 2;
+    color: #303035;
+    text-decoration: none;
+    background-color: #ccddec;
+
+}
+
+.page-item.active .page-link-custom {
+    z-index: 3;
+    color: #fff;
+    background-color: #303035;
+    border-color: #303035;
+}
+
+.page-item.disabled .page-link-custom {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #ccddec;
+
+}

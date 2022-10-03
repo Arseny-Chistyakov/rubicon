@@ -1,0 +1,23 @@
+[
+  {
+    "model": "products.productcategory",
+    "pk": "0dd75069-a70d-4240-b20b-1d380122234b",
+    "fields": {
+      "name": "Защита сетевого взаимодействия"
+    }
+  },
+  {
+    "model": "products.productcategory",
+    "pk": "0e8dab09-77fd-435b-9357-dc9eeceecc1e",
+    "fields": {
+      "name": "Защита рабочих станции и серверов"
+    }
+  },
+  {
+    "model": "products.productcategory",
+    "pk": "a48b47e2-cd2a-49f2-901b-43aca12ea48a",
+    "fields": {
+      "name": "Защита виртуальных инфраструктур"
+    }
+  }
+]

@@ -10,10 +10,10 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('header', 'author', 'publish', 'status', 'slug')
+    list_display = ('title', 'author', 'publish', 'status', 'slug')
     list_filter = ('status', 'created', 'publish', 'author')
-    search_fields = ('header', 'body')
-    prepopulated_fields = {'slug': ('header',)}
+    search_fields = ('title', 'body')
+    prepopulated_fields = {'slug': ('title',)}
     date_hierarchy = 'publish'
     ordering = ['status', 'publish']
 

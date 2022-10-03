@@ -1,0 +1,46 @@
+{% load static %}
+<nav id="nav-bar-my" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top nav-bar-my">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'vendor\img\logo\logo.png' %}" alt="logo" width="50%"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto box_block ">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'blogs:index' %}"> Блог </a>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'products:index' %}"> Услуги </a>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle box_block1" href="#" id="navbarDropdown"
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu ba" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'users:profile' %}">Профиль</a></li>
+                                <li><a class="dropdown-item" href="{% url 'orders:list' %}">Заказы</a></li>
+                                {% if user.is_staff or user.is_superuser %}
+                                    <li>
+                                        <a class="dropdown-item ba" href="{% url 'admin:index' %}">Админ-панель</a>
+                                    </li>
+                                {% endif %}
+                                <li>
+                                    <hr class="dropdown-divider"/>
+                                </li>
+                                <li><a class="dropdown-item" href="{% url "users:logout" %}">Выйти</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'users:login' %}">Войти
+                                <i class="fas fa-sign-in-alt"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

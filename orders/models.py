@@ -1,9 +1,12 @@
+from uuid import uuid4
+
 from django.conf import settings
 from django.db import models
 
 from products.models import Product
 
 
+# TODO: полностью переделать заказы начиная от шаблона, заканчивая новым функционалом
 class Order(models.Model):
     FORMING = 'FM'
     SEND_TO_PROCESSED = 'STP'
@@ -20,16 +23,16 @@ class Order(models.Model):
         (READY, 'Готов к выдачи'),
         (CANCEL, 'Отмена заказа'),
     )
-
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    created = models.DateTimeField(verbose_name='Создан', auto_now=True)
-    updated = models.DateTimeField(verbose_name='Обновлен', auto_now_add=True)
-    paid = models.DateTimeField(verbose_name='Оплачен', null=True, blank=True)
-    status = models.CharField(choices=ORDER_STATUS_CHOICES, verbose_name='Статус', max_length=50, default=FORMING)
-    is_active = models.BooleanField(verbose_name='Активный', default=True)
+    uid = models.UUIDField(primary_key=True, default=uuid4, verbose_name='ID')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='Заказчик')
+    created = models.DateTimeField(auto_now=True, verbose_name='Время создания заказа')
+    updated = models.DateTimeField(auto_now_add=True, verbose_name='Время обновления заказа')
+    paid = models.DateTimeField(null=True, blank=True, verbose_name='Время оплаты заказа')
+    status = models.CharField(choices=ORDER_STATUS_CHOICES, max_length=50, default=FORMING, verbose_name='Состояние')
+    is_active = models.BooleanField(default=True, verbose_name='Выполнен ли заказ?')
 
     def __str__(self):
-        return f'Текущий заказ {self.pk}'
+        return f'Текущий заказ {self.uid}'
 
     def get_total_cost(self):
         items = self.orderitems.select_related()
@@ -51,9 +54,10 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, verbose_name='заказ', related_name='orderitems', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, verbose_name='продукты', on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(verbose_name='количество', default=0)
+    uid = models.UUIDField(primary_key=True, default=uuid4, verbose_name='ID')
+    order = models.ForeignKey(Order, related_name='orderitems', on_delete=models.CASCADE, verbose_name='Заказ')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Продукты в заказе')
+    quantity = models.PositiveIntegerField(default=0, verbose_name='Количество товара в заказе')
 
     def get_product_cost(self):
         return self.product.price * self.quantity

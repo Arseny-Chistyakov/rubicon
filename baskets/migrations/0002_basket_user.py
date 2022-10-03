@@ -6,25 +6,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('blogs', '0001_initial'),
+        ('baskets', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='author',
+            model_name='basket',
+            name='user',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL,
-                                    verbose_name='Автор поста'),
-        ),
-        migrations.AddField(
-            model_name='comment',
-            name='post',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments',
-                                    to='blogs.post', verbose_name='Комментируемый пост'),
+                                    verbose_name='Корзина для пользователя'),
         ),
     ]

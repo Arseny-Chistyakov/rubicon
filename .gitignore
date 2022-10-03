@@ -1,6 +1,7 @@
 .idea
 __pycache__/
 tmp
+.venv
 .env
 product.xlsx
 
