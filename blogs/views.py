@@ -34,6 +34,7 @@ def post_detail(request, post_slug):
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.post = post
+            new_comment.user = request.user
             new_comment.save()
             return HttpResponseRedirect(request.path)
     else:
@@ -41,6 +42,7 @@ def post_detail(request, post_slug):
     context = {
         'title': 'Подробнее о посте',
         'post': post,
+        'user': request.user,
         'comments': comments,
         'comment_form': comment_form}
     return render(request, 'blogs/post_detail.html', context=context)

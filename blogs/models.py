@@ -36,11 +36,8 @@ class Post(models.Model):
 
 class Comment(models.Model):
     uid = models.UUIDField(primary_key=True, default=uuid4, verbose_name='ID')
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments',
-                             verbose_name='Комментируемый пост')
-    # TODO: user foreignkey
-    name = models.CharField(max_length=128, verbose_name='Имя или никнейм комментатора')
-    email = models.EmailField(verbose_name='Почта комментатора')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name='Пост')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Никнейм комментатора')
     body = models.TextField(verbose_name='Комментарий')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Комментарий создан')
     updated = models.DateTimeField(auto_now=True, verbose_name='Комментарий изменен')
@@ -50,4 +47,4 @@ class Comment(models.Model):
         ordering = ('created',)
 
     def __str__(self):
-        return '{} прокомментировал {}'.format(self.name, self.post)
+        return '{} прокомментировал {}'.format(self.user, self.post)
