@@ -13,7 +13,7 @@ class ProductCategory(models.Model):
 
 class Product(models.Model):
     uid = models.UUIDField(primary_key=True, default=uuid4, verbose_name='ID')
-    name = models.CharField(max_length=100, verbose_name='Имя продукта')
+    name = models.CharField(max_length=100, verbose_name='Наименование продукта')
     description = models.TextField(verbose_name='Описание продукта')
     price = models.PositiveIntegerField(default=0, verbose_name='Стоимость продукта')
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество продукта')
