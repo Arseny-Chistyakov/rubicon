@@ -1,15 +1,13 @@
 import os.path
 from pathlib import Path
 
-import dj_database_url
-import django_heroku
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY')
-
 load_dotenv(BASE_DIR / '.env')
+
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 
@@ -99,9 +97,6 @@ else:
         }
     }
 
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-
 # Password validation
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -132,7 +127,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = (
@@ -152,9 +146,6 @@ LOGIN_URL = '/users/login/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL = '/'
-
-# Django Heroku
-django_heroku.settings(locals())
 
 # Verification in mail
 DOMAIN_NAME = 'http://mail.ru'
@@ -193,10 +184,6 @@ SOCIAL_AUTH_PIPELINE = (
     # 'github_app.auth_pipeline.user',
 )
 
-# # github
-# Client_ID = os.getenv('Client ID')
-# Client_secrets = os.getenv('Client_secrets')
-
 # vk
 SOCIAL_AUTH_VK_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_VK_OAUTH2_KEY')
 SOCIAL_AUTH_VK_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_VK_OAUTH2_SECRET')
@@ -204,3 +191,10 @@ SOCIAL_AUTH_VK_OAUTH2_API_VERSION = '5.131'
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 SOCIAL_AUTH_VK_OAUTH2_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
+
+# # github
+# Client_ID = os.getenv('Client ID')
+# Client_secrets = os.getenv('Client_secrets')
+
+# # Django Heroku
+# django_heroku.settings(locals())
