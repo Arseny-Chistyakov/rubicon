@@ -46,10 +46,18 @@ https://github.com/Arseny-Chistyakov/rubicon.git
 python -m venv venv
 ```
 
-Активировать виртуальное окружение
+Активировать виртуальное окружение<br>
+
+Linux/MacOS:
 
 ```
-venv\Scripts\activate.bat
+source venv/bin/activate
+```
+
+Windows:
+
+```
+venv/Scripts/activate.bat     
 ```
 
 Установить зависимости
@@ -94,6 +102,30 @@ python manage.py createsuperuser
 
 ```
 python manage.py runserver
+```
+<br>
+
+Для проверки работы CRM можно установить заготовленные фикстуры c помощью команд:
+###### Фикстура - это набор данных, которые Django умеет импортировать в базу данных.
+Пользователи:
+```
+python manage.py loaddata users/fixtures/Users.json 
+```
+Категории продуктов:
+```
+python manage.py loaddata products/fixtures/ProductCategory.json 
+```
+Продукты:
+```
+python manage.py loaddata products/fixtures/Products.json 
+```
+Записи постов:
+```
+python manage.py loaddata blogs/fixtures/Posts.json
+```
+Можно объединить все команды в одну:
+```
+python manage.py loaddata users/fixtures/Users.json && python manage.py loaddata products/fixtures/ProductCategory.json && python manage.py loaddata products/fixtures/Products.json && python manage.py loaddata blogs/fixtures/Posts.json
 ```
 
 ---

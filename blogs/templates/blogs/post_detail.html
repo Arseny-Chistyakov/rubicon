@@ -16,7 +16,7 @@
                 {% for comment in post.comments.all %}
                     {% if comment.active %}
                         <div class="card mt-2 mb-2">
-                            <div class="card-body">
+                            <div class="card-body" style="background-color: #daeefe;">
                                 <p>{{ comment.user }} <span class="text-muted"> • {{ comment.created }}</span></p>
                                 {{ comment.body|linebreaks }}
                             </div>
